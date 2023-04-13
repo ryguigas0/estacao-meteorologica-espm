@@ -24,8 +24,7 @@ fastify.addHook("onRoute", routeOptions => {
 // Just send some info at the home route
 fastify.get("/", (request, reply) => {
   const data = {
-    title: "Hello SQLite (blank)",
-    intro: "This is a database-backed API with the following endpoints",
+    title: "Endpoints da estacao metereologica",
     routes: routes.endpoints
   };
   reply.status(200).send(data);

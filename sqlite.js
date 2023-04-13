@@ -6,7 +6,7 @@
  */
 
 const fs = require("fs");
-const dbFile = "./.data/chat.db";
+const dbFile = `./.data/${process.env.DB_NAME}.db`;
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require("sqlite3").verbose();
 const dbWrapper = require("sqlite");
@@ -14,6 +14,11 @@ const casual = require("casual");
 let db;
 
 //SQLite wrapper for async / await connections https://www.npmjs.com/package/sqlite
+if (!exists) {
+  fs.mkdirSync(".data")
+  fs.writeFileSync(dbFile, "")
+}
+
 dbWrapper
   .open({
     filename: dbFile,
@@ -23,16 +28,14 @@ dbWrapper
     db = dBase;
 
     try {
-      if (!exists) {
+      await db.run(
+        "CREATE TABLE if not exists Messages (id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT)"
+      );
+      for (let r = 0; r < 5; r++)
         await db.run(
-          "CREATE TABLE Messages (id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT)"
+          "INSERT INTO Messages (message) VALUES (?)",
+          casual.catch_phrase
         );
-        for (let r = 0; r < 5; r++)
-          await db.run(
-            "INSERT INTO Messages (message) VALUES (?)",
-            casual.catch_phrase
-          );
-      }
       console.log(await db.all("SELECT * from Messages"));
     } catch (dbError) {
       console.error(dbError);
@@ -41,7 +44,7 @@ dbWrapper
 
 // Server script calls these methods to connect to the db
 module.exports = {
-  
+
   // Get the messages in the database
   getMessages: async () => {
     try {
