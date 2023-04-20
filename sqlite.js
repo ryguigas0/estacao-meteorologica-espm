@@ -1,8 +1,5 @@
 /**
  * Module handles database management
- *
- * The sample data is for a chat log with one table:
- * Messages: id + message text
  */
 
 const fs = require("fs");
@@ -29,14 +26,18 @@ dbWrapper
 
     try {
       await db.run(
-        "CREATE TABLE if not exists Messages (id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT)"
+        "CREATE TABLE if not exists Leituras (id INTEGER PRIMARY KEY AUTOINCREMENT, temperatura REAL, umidade REAL, data_criacao TEXT)"
       );
-      for (let r = 0; r < 5; r++)
-        await db.run(
-          "INSERT INTO Messages (message) VALUES (?)",
-          casual.catch_phrase
-        );
-      console.log(await db.all("SELECT * from Messages"));
+
+      // Leituras geradas para testes
+      // for (let r = 0; r < 5; r++)
+      //   await db.run(
+      //     "INSERT INTO Leituras (temperatura, umidade, data_criacao) VALUES (?, ?, datetime('now'))",
+      //     parseFloat(`${(Math.random() * 50)}`).toFixed(2),
+      //     parseFloat(`${(Math.random() * 100)}`).toFixed(2),
+      //   );
+      // console.log(await db.all("SELECT * from Leituras"));
+      
     } catch (dbError) {
       console.error(dbError);
     }
@@ -45,21 +46,21 @@ dbWrapper
 // Server script calls these methods to connect to the db
 module.exports = {
 
-  // Get the messages in the database
-  getMessages: async () => {
+  // Get the Leituras in the database
+  getLeituras: async () => {
     try {
-      return await db.all("SELECT * from Messages");
+      return await db.all("SELECT * from Leituras");
     } catch (dbError) {
       console.error(dbError);
     }
   },
 
-  // Add new message
-  addMessage: async message => {
+  // Add new leitura
+  addMessage: async leitura => {
     let success = false;
     try {
-      success = await db.run("INSERT INTO Messages (message) VALUES (?)", [
-        message
+      success = await db.run("INSERT INTO Leituras (temperatura, umidade, data_criacao) VALUES (?, ?, datetime('now'))", [
+        leitura.temperatura, leitura.umidade
       ]);
     } catch (dbError) {
       console.error(dbError);
@@ -67,26 +68,26 @@ module.exports = {
     return success.changes > 0 ? true : false;
   },
 
-  // Update message text
-  updateMessage: async (id, message) => {
-    let success = false;
-    try {
-      success = await db.run(
-        "Update Messages SET message = ? WHERE id = ?",
-        message,
-        id
-      );
-    } catch (dbError) {
-      console.error(dbError);
-    }
-    return success.changes > 0 ? true : false;
-  },
+  // // Update leitura text
+  // updateMessage: async (id, leitura) => {
+  //   let success = false;
+  //   try {
+  //     success = await db.run(
+  //       "Update Leituras SET leitura = ? WHERE id = ?",
+  //       leitura,
+  //       id
+  //     );
+  //   } catch (dbError) {
+  //     console.error(dbError);
+  //   }
+  //   return success.changes > 0 ? true : false;
+  // },
 
-  // Remove message
+  // Remove leitura
   deleteMessage: async id => {
     let success = false;
     try {
-      success = await db.run("Delete from Messages WHERE id = ?", id);
+      success = await db.run("Delete from Leituras WHERE id = ?", id);
     } catch (dbError) {
       console.error(dbError);
     }

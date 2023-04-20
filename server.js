@@ -33,38 +33,28 @@ fastify.get("/", (request, reply) => {
   reply.status(200).send(data);
 });
 
-// Return the chat messages from the database helper script - no auth
-fastify.get("/messages", async (request, reply) => {
+// Return the leituras leituras from the database helper script - no auth
+fastify.get("/leituras", async (request, reply) => {
   let data = {};
-  data.chat = await db.getMessages();
-  console.log(data.chat);
-  if (!data.chat) data.error = errorMessage;
+  data.leituras = await db.getLeituras();
+  console.log(data.leituras);
+  if (!data.leituras) data.error = errorMessage;
   const status = data.error ? 400 : 200;
   reply.status(status).send(data);
 });
 
-// Add new message (auth)
-fastify.post("/message", async (request, reply) => {
+// Add new leitura (auth)
+fastify.post("/leitura", async (request, reply) => {
   let data = {};
   const auth = authorized(request.headers.admin_key);
-  if (!auth || !request.body || !request.body.message) data.success = false;
-  else if (auth) data.success = await db.addMessage(request.body.message);
+  if (!auth || !request.body || !request.body.leitura) data.success = false;
+  else if (auth) data.success = await db.addMessage(request.body.leitura);
   const status = data.success ? 201 : auth ? 400 : 401;
   reply.status(status).send(data);
 });
 
-// Update text for an message (auth)
-fastify.put("/message", async (request, reply) => {
-  let data = {};
-  const auth = authorized(request.headers.admin_key);
-  if (!auth || !request.body || !request.body.id || !request.body.message) data.success = false;
-  else data.success = await db.updateMessage(request.body.id, request.body.message);
-  const status = data.success ? 201 : auth ? 400 : 401;
-  reply.status(status).send(data);
-});
-
-// Delete a message (auth)
-fastify.delete("/message", async (request, reply) => {
+// Delete a leitura (auth)
+fastify.delete("/leitura", async (request, reply) => {
   let data = {};
   const auth = authorized(request.headers.admin_key);
   if (!auth || !request.query || !request.query.id) data.success = false;
