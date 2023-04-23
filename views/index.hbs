@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estação metereológica</title>
+</head>
+<body>
+    <h1>Dados da estação metereológica</h1>
+    <ul id="dados"></ul>
+    <script>
+        var leituras = []
+
+        {{#each leituras}}
+            leituras.push({
+                temperatura: {{temperatura}},
+                umidade: {{umidade}},
+                data_criacao: '{{data_criacao}}',
+                id: {{id}}
+            })
+        {{/each}}
+
+        for(let i = 0; i < leituras.length; i++) {
+            const newElement = document.createElement("li")
+
+            newElement.textContent = JSON.stringify(leituras[i])
+
+            document.querySelector("ul#dados").appendChild(newElement)
+        }
+    </script>
+</body>
+</html>

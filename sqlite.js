@@ -3,7 +3,7 @@
  */
 
 const fs = require("fs");
-const dbFile = `./.data/${process.env.DB_NAME}.db`;
+const dbFile = `./.data/${process.env.DB_NAME || 'estacao'}.db`;
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require("sqlite3").verbose();
 const dbWrapper = require("sqlite");

@@ -19,18 +19,25 @@ const errorMessage =
 
 fastify.register(require("@fastify/formbody"));
 
+// View is a templating manager for fastify
+fastify.register(require("@fastify/view"), {
+  engine: {
+    handlebars: require("handlebars"),
+  },
+});
+
 // OnRoute hook to list endpoints
 fastify.addHook("onRoute", routeOptions => {
   routes.endpoints.push(routeOptions.method + " " + routeOptions.path);
 });
 
 // Just send some info at the home route
-fastify.get("/", (request, reply) => {
+fastify.get("/", async (request, reply) => {
   const data = {
-    title: "Endpoints da estacao metereologica",
-    routes: routes.endpoints
+    leituras: await db.getLeituras()
   };
-  reply.status(200).send(data);
+  
+  return reply.view("/views/index.hbs", data)
 });
 
 // Return the leituras leituras from the database helper script - no auth
