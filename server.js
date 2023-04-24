@@ -31,13 +31,20 @@ fastify.addHook("onRoute", routeOptions => {
   routes.endpoints.push(routeOptions.method + " " + routeOptions.path);
 });
 
-// Just send some info at the home route
 fastify.get("/", async (request, reply) => {
   const data = {
     leituras: await db.getLeituras()
   };
   
   return reply.view("/views/index.hbs", data)
+});
+
+// Just send some info at the home route
+fastify.get("/routes", (request, reply) => {
+  const data = {
+    routes: routes.endpoints
+  };
+  reply.status(200).send(data);
 });
 
 // Return the leituras leituras from the database helper script - no auth
