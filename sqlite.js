@@ -30,12 +30,12 @@ dbWrapper
       );
 
       // Leituras geradas para testes
-      // for (let r = 0; r < 5; r++)
-      //   await db.run(
-      //     "INSERT INTO Leituras (temperatura, umidade, data_criacao) VALUES (?, ?, datetime('now'))",
-      //     parseFloat(`${(Math.random() * 50)}`).toFixed(2),
-      //     parseFloat(`${(Math.random() * 100)}`).toFixed(2),
-      //   );
+      for (let r = 0; r < 5; r++)
+        await db.run(
+          "INSERT INTO Leituras (temperatura, umidade, data_criacao) VALUES (?, ?, datetime('now'))",
+          parseFloat(`${(Math.random() * 50)}`).toFixed(2),
+          parseFloat(`${(Math.random() * 100)}`).toFixed(2),
+        );
       // console.log(await db.all("SELECT * from Leituras"));
       
     } catch (dbError) {

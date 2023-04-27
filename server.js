@@ -5,17 +5,19 @@
  */
 require('dotenv').config()
 
+const path = require("path");
+
+const routes = { endpoints: [] };
+
+const errorMessage =
+  "Whoops! Error connecting to the database, please try again!";
+
 const db = require("./sqlite.js");
 
 const fastify = require("fastify")({
   // Set this to true for detailed logging:
   logger: false
 });
-
-const routes = { endpoints: [] };
-
-const errorMessage =
-  "Whoops! Error connecting to the database, please try again!";
 
 fastify.register(require("@fastify/formbody"));
 
@@ -24,6 +26,11 @@ fastify.register(require("@fastify/view"), {
   engine: {
     handlebars: require("handlebars"),
   },
+});
+
+fastify.register(require("@fastify/static"), {
+  root: path.join(__dirname, "public"),
+  prefix: "/public", // optional: default '/'
 });
 
 // OnRoute hook to list endpoints
@@ -35,7 +42,7 @@ fastify.get("/", async (request, reply) => {
   const data = {
     leituras: await db.getLeituras()
   };
-  
+
   return reply.view("/views/index.hbs", data)
 });
 

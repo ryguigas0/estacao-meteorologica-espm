@@ -1,93 +1,38 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Estação metereológica</title>
-    <link
-			rel="stylesheet"
-			type="text/css"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-		/>
-		<script
-			type="text/javascript"
-			src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-		></script>
-
-		<link rel="stylesheet" type="text/css" href="/public/css/main.css" />
-		<style type="text/css">
-		
-		.limitador {
-			max-width: 1000px;
-			margin: 0px auto;
-		}
-		
-		img {
-			max-width: 100%;
-		}
-		
-		.secao1 {
-			background-image: url('img\tempoJPG.JPG');
-			background-size: cover;
-			background-position: center center;
-			color: black;
-			text-align: center;
-			padding: 250px 50px;
-		}
-		
-		.secao2 {
-			background-color: #6495ED;
-			color: black;
-			text-align: center;
-			
-		}
-			.secao3 {
-			background-image: url('');
-			background-size: cover;
-			color: black;
-			text-align: center;
-			padding: 20px 20px;
-			background-color = gray;
-		}
-			.outra {
-			background-color: white;
-			border: solid 5px black;
-	width: 50%;
-    height: 0%;
-    padding-bottom:30%;    
-    margin: 0 auto;
-		}
-		
-	</style>
-</head>
-<body>
-<header>
-<div class="secao2">
     
-		
-		<div class="container-fluid">
-			
-			<div class="row justify-content-start">
-				<div class="col-sm-1">
-					<img src=""	width="80" />
-				</div>
-				<div class="col-sm-8">
-					<h1>Estação metereológica Selmini</h1>
-				</div>
-				
-			</div>
-			
-		</div>
-		
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+  </head>
+  <body>
+    <header>
+      <div class="secao2">
+        <div class="container-fluid">
+          <div class="row justify-content-start">
+            <div class="col-sm-8">
+              <h1>Estação metereológica Selmini</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="secao1">
+      <h1>Dados da estação metereológica</h1>
+      <div class="outra">
+        <div class="row justify-content-center" background-color="white">
+          <div class="col">
+            <ul id="dados"></ul>
+          </div>
+        </div>
+      </div>
     </div>
 
-    </header>
-    
-    
-    
-   <div class="secao1">
-   <h1>Dados da estação metereológica</h1>
    <script>
         var leituras = []
 
@@ -108,18 +53,6 @@
             document.querySelector("ul#dados").appendChild(newElement)
         }
     </script>
-    <div class="outra">
-		<div class="row justify-content-center" background-color= "white">
-				<div class="col">
-					<ul id="dados"></ul>
-    			</div>
-    		</div>
-		</div>
-    </div>
-    
-    
-    
-    
-    
-</body>
+
+  </body>
 </html>
