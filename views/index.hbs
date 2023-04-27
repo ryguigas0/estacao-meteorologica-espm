@@ -5,11 +5,95 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estação metereológica</title>
+    <link
+			rel="stylesheet"
+			type="text/css"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+		/>
+		<script
+			type="text/javascript"
+			src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+		></script>
+
+		<link rel="stylesheet" type="text/css" href="/public/css/main.css" />
+		<style type="text/css">
+		
+		.limitador {
+			max-width: 1000px;
+			margin: 0px auto;
+		}
+		
+		img {
+			max-width: 100%;
+		}
+		
+		.secao1 {
+			background-image: url('https://tech-espm.github.io/labs-editor/html/site/image_2023-04-26_210603683.png');
+			background-size: cover;
+			background-position: center center;
+			color: black;
+			text-align: center;
+			padding: 250px 50px;
+		}
+		
+		.secao2 {
+			background-color: gray;
+			color: black;
+			text-align: center;
+			
+		}
+			.secao3 {
+			background-color: gray;
+			
+			color: black;
+			text-align: center;
+			padding: 50px 50px;
+			background-color = gray;
+		}
+			.outra {
+			background-color: white;
+			
+			color: black;
+			text-align: center;
+			height: 150px;
+			margin: 10px;
+			background-color = gray;
+		}
+		
+	</style>
 </head>
 <body>
+<header>
+<div class="secao2">
+    
+		
+		<div class="container-fluid">
+			
+			<div class="row justify-content-start">
+				<div class="col-sm-1">
+					<img src="data:image/png;base64,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" 
+					width="80" />
+				</div>
+				<div class="col-sm-8">
+					<h1>Estação metereológica Selmini</h1>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+    </div>
+
+    </header>
+    <div class="secao3">
     <h1>Dados da estação metereológica</h1>
-    <ul id="dados"></ul>
-    <script>
+  
+    </div>
+    
+    
+   <div class="secao1">
+   
+   <script>
         var leituras = []
 
         {{#each leituras}}
@@ -29,5 +113,20 @@
             document.querySelector("ul#dados").appendChild(newElement)
         }
     </script>
+    <div class="outra">
+		<div class="row justify-content-center" background-color= "white">
+			
+				<div class="col">
+					<ul id="dados"></ul>
+					teste
+    			</div>
+    		</div>
+		</div>
+    </div>
+    
+    
+    
+    
+    
 </body>
 </html>
