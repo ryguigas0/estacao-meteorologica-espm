@@ -1,0 +1,42 @@
+.limitador {
+    max-width: 1000px;
+    margin: 0px auto;
+}
+
+img {
+    max-width: 100%;
+}
+
+.secao1 {
+    background-image: url('../img/tempo.jpg');
+    background-size: cover;
+    background-position: center center;
+    color: black;
+    text-align: center;
+    padding: 250px 50px;
+}
+
+.secao2 {
+    background-color: #6495ED;
+    color: black;
+    text-align: center;
+
+}
+
+.secao3 {
+    background-image: url('');
+    background-size: cover;
+    color: black;
+    text-align: center;
+    padding: 20px 20px;
+    background-color: gray;
+}
+
+.outra {
+    background-color: white;
+    border: solid 5px black;
+    width: 50%;
+    height: 0%;
+    padding-bottom: 30%;
+    margin: 0 auto;
+}

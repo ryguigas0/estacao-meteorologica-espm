@@ -1,7 +1,7 @@
 {
-  "name": "glitch-blank-sqlite",
+  "name": "estacao-metereologica-espm",
   "version": "0.2.0",
-  "description": "A Node app with SQLite database, instantly up and running.",
+  "description": "Estacao metereologica feita em Node e SQLite",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -21,7 +21,7 @@
     "node": "14.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/glitch-blank-sqlite"
+    "url": "https://github.com/ryguigas0/estacao-metereologica-espm"
   },
   "license": "MIT",
   "keywords": [
