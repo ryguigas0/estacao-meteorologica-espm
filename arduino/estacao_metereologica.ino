@@ -59,7 +59,37 @@ void handle_OnConnect() {
   Serial.print(umidade); //Imprime no monitor serial o valor da umidade lida
   Serial.println(" %");
   server.send(200, "text/html", montarHTML(temperatura, umidade)); //Envia as informações usando o código 200, especifica o conteúdo como "text/html" e chama a função montarHTML
+/*||||||||||||||||||||||||||||
+ if(WiFi.status()== WL_CONNECTED){
+      WiFiClient client;
+      HTTPClient http;
 
+
+// Your Domain name with URL path or IP address with path
+      http.begin(client, https://estacao-metereologia.glitch.me);
+
+// If you need Node-RED/server authentication, insert user and password below
+http.setAuthorization("https://estacao-metereologia.glitch.me", "*********");
+
+
+ // Specify content-type header
+      http.addHeader("Content-Type", "text/plain");
+      // Data to send with HTTP POST
+      String httpRequestData = "Temperatura: "+ temperatura+ " Umidade: "+ umidade;           
+      // Send HTTP POST request
+      int httpResponseCode = http.POST(httpRequestData);
+
+Serial.print("HTTP Response code: ");
+      Serial.println(httpResponseCode);
+        
+      // Free resources
+      http.end();
+    }
+    else {
+      Serial.println("WiFi Disconnected");
+    }
+
+*/||||||||||||||||
 }
 
 void handle_NotFound() { //Função para lidar com o erro 404
