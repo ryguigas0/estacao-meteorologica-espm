@@ -3,7 +3,7 @@
  */
 
 const fs = require("fs");
-const dbFile = `./.data/${process.env.DB_NAME || 'estacao'}.db`;
+const dbFile = `./${process.env.DB_NAME || 'estacao'}.db`;
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require("sqlite3").verbose();
 const dbWrapper = require("sqlite");
@@ -26,17 +26,17 @@ dbWrapper
 
     try {
       await db.run(
-        "CREATE TABLE if not exists Leituras (id INTEGER PRIMARY KEY AUTOINCREMENT, temperatura REAL, umidade REAL, data_criacao TEXT)"
+        "CREATE TABLE if not exists Leitura (id INTEGER PRIMARY KEY AUTOINCREMENT, temperatura REAL, umidade REAL, data_criacao TEXT)"
       );
 
-      // Leituras geradas para testes
+      // Leitura geradas para testes
       // for (let r = 0; r < 5; r++)
       //   await db.run(
-      //     "INSERT INTO Leituras (temperatura, umidade, data_criacao) VALUES (?, ?, datetime('now'))",
+      //     "INSERT INTO Leitura (temperatura, umidade, data_criacao) VALUES (?, ?, datetime('now'))",
       //     parseFloat(`${(Math.random() * 50)}`).toFixed(2),
       //     parseFloat(`${(Math.random() * 100)}`).toFixed(2),
       //   );
-      // console.log(await db.all("SELECT * from Leituras"));
+      // console.log(await db.all("SELECT * from Leitura"));
       
     } catch (dbError) {
       console.error(dbError);
@@ -46,10 +46,10 @@ dbWrapper
 // Server script calls these methods to connect to the db
 module.exports = {
 
-  // Get the Leituras in the database
+  // Get the Leitura in the database
   getLeituras: async () => {
     try {
-      return await db.all("SELECT * from Leituras");
+      return await db.all("SELECT * from Leitura");
     } catch (dbError) {
       console.error(dbError);
     }
@@ -59,7 +59,7 @@ module.exports = {
   addMessage: async leitura => {
     let success = false;
     try {
-      success = await db.run("INSERT INTO Leituras (temperatura, umidade, data_criacao) VALUES (?, ?, datetime('now'))", [
+      success = await db.run("INSERT INTO Leitura (temperatura, umidade, data_criacao) VALUES (?, ?, datetime('now'))", [
         leitura.temperatura, leitura.umidade
       ]);
     } catch (dbError) {
@@ -73,7 +73,7 @@ module.exports = {
   //   let success = false;
   //   try {
   //     success = await db.run(
-  //       "Update Leituras SET leitura = ? WHERE id = ?",
+  //       "Update Leitura SET leitura = ? WHERE id = ?",
   //       leitura,
   //       id
   //     );
@@ -87,7 +87,7 @@ module.exports = {
   deleteMessage: async id => {
     let success = false;
     try {
-      success = await db.run("Delete from Leituras WHERE id = ?", id);
+      success = await db.run("Delete from Leitura WHERE id = ?", id);
     } catch (dbError) {
       console.error(dbError);
     }
