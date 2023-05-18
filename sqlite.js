@@ -54,6 +54,7 @@ module.exports = {
   },
 
   // Add new leitura
+
   addMessage: async (leitura) => {
     let success = false;
     try {
