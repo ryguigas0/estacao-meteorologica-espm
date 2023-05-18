@@ -1,0 +1,118 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Estação metereológica</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+
+  <link rel="stylesheet" type="text/css" href="/public/css/index.css" />
+</head>
+
+<body class="text-center fit-content">
+  <div class="container-fluid py-2">
+    <div class="row justify-content-center py-2">
+      <h1>Estação metereológica - Trabalho Interdisciplinar ESPM</h1>
+    </div>
+    <div class="row aligin-items-center align-center">
+      <div class="col-md-6 col-12">
+        <h4>Gráfico de temperaturas lidas</h4>
+        <canvas id="grafico-temperatura"></canvas>
+      </div>
+      <div class="col-md-6 col-12">
+        <h4>Gráfico de umidade lida</h4>
+        <canvas id="grafico-umidade"></canvas>
+      </div>
+    </div>
+    <div class="row text-center py-2">
+      <div class="col">
+        <h4>Tabela de temperatura e humidade lidas</h4>
+        <div class="container-fluid">
+          <div class="row justify-content-center pb-2">
+            <a class="btn btn-success" href="#" role="button">Baixar arquivo Excel</a>
+          </div>
+          <div class="row" style="height: 30vh; overflow-y: scroll;">
+            <div class="col">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <th scope="col">ID</th>
+                  <th scope="col">Data</th>
+                  <th scope="col">Temperatura (ºC)</th>
+                  <th scope="col">Umidade (%)</th>
+                </thead>
+                <tbody>
+                  {{#each leituras}}
+                  <tr>
+                    <td>{{id}}</td>
+                    <td>{{data_criacao}}</td>
+                    <td>{{temperatura}}</td>
+                    <td>{{umidade}}</td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script async type="module">
+    import chartJs from 'https://cdn.jsdelivr.net/npm/chart.js@4.2.1/+esm'
+
+      const leituras = [];
+
+      {{#each leituras}}
+      leituras.push({
+        id: {{id}},
+        data_criacao: '{{data_criacao}}',
+        temperatura: {{temperatura}},
+        umidade: {{umidade}}
+      })
+      {{/each}}
+
+    new Chart(
+        document.getElementById('grafico-temperatura'),
+        {
+          type: 'line',
+          data: {
+            labels: leituras.map(row => row.data_criacao),
+            datasets: [
+              {
+                label: 'Temperatura (ºC)',
+                data: leituras.map(row => row.temperatura),
+                borderColor: '#FF6384',
+                backgroundColor: '#FFB1C1',
+              }
+            ]
+          }
+        }
+      );
+
+      new Chart(
+        document.getElementById('grafico-umidade'),
+        {
+          type: 'line',
+          data: {
+            labels: leituras.map(row => row.data_criacao),
+            datasets: [
+              {
+                label: 'Umidade (%)',
+                data: leituras.map(row => row.umidade),
+                borderColor: '#4a4dd6',
+                backgroundColor: '#3b3eac',
+              }
+            ]
+          }
+        }
+      );
+  </script>
+</body>
+
+</html>
