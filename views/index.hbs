@@ -13,6 +13,60 @@
 </head>
 
 <body class="text-center fit-content">
+  <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/excellentexport@3.4.3/dist/excellentexport.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script async type="module">
+    import chartJs from 'https://cdn.jsdelivr.net/npm/chart.js@4.2.1/+esm'
+
+    const leituras = [];
+
+    {{#each leituras}}
+    leituras.push({
+      id: {{ id }},
+      data_criacao: '{{data_criacao}}',
+      temperatura: {{ temperatura }},
+      umidade: {{ umidade }}
+      })
+    {{/each}}
+
+        new Chart(
+          document.getElementById('grafico-temperatura'),
+          {
+            type: 'line',
+            data: {
+              labels: leituras.map(row => row.data_criacao),
+              datasets: [
+                {
+                  label: 'Temperatura (ºC)',
+                  data: leituras.map(row => row.temperatura),
+                  borderColor: '#FF6384',
+                  backgroundColor: '#FFB1C1',
+                }
+              ]
+            }
+          }
+        );
+
+        new Chart(
+          document.getElementById('grafico-umidade'),
+          {
+            type: 'line',
+            data: {
+              labels: leituras.map(row => row.data_criacao),
+              datasets: [
+                {
+                  label: 'Umidade (%)',
+                  data: leituras.map(row => row.umidade),
+                  borderColor: '#4a4dd6',
+                  backgroundColor: '#3b3eac',
+                }
+              ]
+            }
+          }
+        );
+  </script>
   <div class="container-fluid py-2">
     <div class="row justify-content-center py-2">
       <h1>Estação metereológica - Trabalho Interdisciplinar ESPM</h1>
@@ -32,11 +86,11 @@
         <h4>Tabela de temperatura e humidade lidas</h4>
         <div class="container-fluid">
           <div class="row justify-content-center pb-2">
-            <a class="btn btn-success" href="#" role="button">Baixar arquivo Excel</a>
+            <a class="btn btn-success" href="#" role="button" download="leituras-estacao.xlsx" onclick="return ExcellentExport.convert({ anchor: this, filename: 'leituras-estacao', format: 'xlsx'},[{name: 'leituras', from: {table: 'table-leituras'}}]);">Baixar arquivo Excel</a>
           </div>
           <div class="row" style="height: 30vh; overflow-y: scroll;">
             <div class="col">
-              <table class="table table-striped table-bordered">
+              <table id="table-leituras" class="table table-striped table-bordered">
                 <thead>
                   <th scope="col">ID</th>
                   <th scope="col">Data</th>
@@ -60,59 +114,6 @@
       </div>
     </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <script async type="module">
-    import chartJs from 'https://cdn.jsdelivr.net/npm/chart.js@4.2.1/+esm'
-
-      const leituras = [];
-
-      {{#each leituras}}
-      leituras.push({
-        id: {{id}},
-        data_criacao: '{{data_criacao}}',
-        temperatura: {{temperatura}},
-        umidade: {{umidade}}
-      })
-      {{/each}}
-
-    new Chart(
-        document.getElementById('grafico-temperatura'),
-        {
-          type: 'line',
-          data: {
-            labels: leituras.map(row => row.data_criacao),
-            datasets: [
-              {
-                label: 'Temperatura (ºC)',
-                data: leituras.map(row => row.temperatura),
-                borderColor: '#FF6384',
-                backgroundColor: '#FFB1C1',
-              }
-            ]
-          }
-        }
-      );
-
-      new Chart(
-        document.getElementById('grafico-umidade'),
-        {
-          type: 'line',
-          data: {
-            labels: leituras.map(row => row.data_criacao),
-            datasets: [
-              {
-                label: 'Umidade (%)',
-                data: leituras.map(row => row.umidade),
-                borderColor: '#4a4dd6',
-                backgroundColor: '#3b3eac',
-              }
-            ]
-          }
-        }
-      );
-  </script>
 </body>
 
 </html>
