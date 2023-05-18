@@ -12,7 +12,6 @@ let db;
 
 //SQLite wrapper for async / await connections https://www.npmjs.com/package/sqlite
 if (!exists) {
-  fs.mkdirSync(".data")
   fs.writeFileSync(dbFile, "")
 }
 
