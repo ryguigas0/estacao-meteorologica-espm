@@ -1,6 +1,6 @@
 # Servidor da estacao Metereologica WHHU - ESPM
 
-Repositório com o código do servidor estação metereológica feita para o projeto interdisciplinar 3 da ESPM
+Repositório com o código do servidor e do hardware da estação metereológica WHHU feita para o projeto interdisciplinar 3 da ESPM
 
 ## Setup
 
